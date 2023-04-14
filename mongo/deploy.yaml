@@ -6,14 +6,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mongo_db
+      app: mongodb
   template:
     metadata:
       labels:
-        app: mongo_db
+        app: mongodb
     spec:
       containers:
-      - name: mongo_db
+      - name: mongodb
         image: mongo:3.6
         ports:
         - name: mongodbport
