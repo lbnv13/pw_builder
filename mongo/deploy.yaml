@@ -1,0 +1,21 @@
+apiVersion: extensions/v1
+kind: Deployment
+metadata:
+  name: mongo_db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo_db
+  template:
+    metadata:
+      labels:
+        app: mongo_db
+    spec:
+      containers:
+      - name: mongo_db
+        image: mongo:3.6
+        ports:
+        - name: mongodbport
+          containerPort: 27017
+          protocol: TCP

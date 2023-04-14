@@ -17,4 +17,7 @@ deploy:
     - helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
     - helm repo update
     - helm upgrade --install prometheus prometheus-community/kube-prometheus-stack --namespace prometheus --create-namespace --wait
-    - helm upgrade --install rabbitmq bitnami/rabbitmq --namespace rabbitmq --namespase rabbitmq --create-namespace --wait
+    - helm upgrade --install rabbitmq bitnami/rabbitmq --namespace rabbitmq  --create-namespace --wait
+    - helm repo add appscode https://charts.appscode.com/stable/
+    - helm repo update
+    - kubectl apply -f ./mongo
