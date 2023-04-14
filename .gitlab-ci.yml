@@ -18,4 +18,6 @@ deploy:
     - helm repo update
     - helm upgrade --install prometheus prometheus-community/kube-prometheus-stack --namespace prometheus --create-namespace --wait
     - helm upgrade --install rabbitmq bitnami/rabbitmq --namespace rabbitmq  --create-namespace --wait
-    - helm install mongodb bitnami/mongodb --namespace mongodb  --create-namespace --wait
+    - helm repo add appscode https://charts.appscode.com/stable/
+    - helm repo update
+    - helm install mongodb appscode/stash-mongodb --version 3.6.1-v1 --namespace mongodb  --create-namespace --wait
