@@ -1,7 +1,7 @@
-apiVersion: extensions/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongo_db
+  name: mongodb
 spec:
   replicas: 1
   selector:
@@ -19,3 +19,4 @@ spec:
         - name: mongodbport
           containerPort: 27017
           protocol: TCP
+          name: mongodb
