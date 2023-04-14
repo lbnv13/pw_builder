@@ -21,4 +21,4 @@ deploy:
     - helm repo add appscode https://charts.appscode.com/stable/
     - helm repo update
     - kubectl create ns mongodb || echo "NS was created earlier"
-    - kubectl apply -f ./mongo --n mongodb
+    - kubectl apply -f ./mongo -n mongodb
