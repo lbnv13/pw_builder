@@ -1,18 +1,12 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: service-monitor
+  name: ui-monitor
 spec:
   selector:
     matchLabels:
       app: ui
   endpoints:
   - port: ui
-    interval: 10s
-  selector:
-    matchLabels:
-      app: crawler
-  endpoints:
-  - port: crawler
     interval: 10s
   
