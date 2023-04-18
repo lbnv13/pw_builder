@@ -4,6 +4,7 @@ stages:
 deploy:
   stage: deploy
   image: ${CI_REGISTRY}/project_dev/infra:latest
+  when: manual
   script:
     - helm version
     - kubectl version --short
@@ -16,10 +17,15 @@ deploy:
     - helm upgrade --install ingress-nginx-controller bitnami/nginx-ingress-controller --namespace ingress-nginx --create-namespace --wait
     - helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
     - helm repo update
-    - helm upgrade --install prometheus prometheus-community/kube-prometheus-stack --namespace prometheus --create-namespace --wait
+    - helm upgrade --install prometheus prometheus-community/kube-prometheus-stack --namespace prometheus --create-namespace --wait --values ./prometheus/values.yaml
     - helm upgrade --install rabbitmq bitnami/rabbitmq --namespace rabbitmq  --create-namespace --wait
     - helm repo add appscode https://charts.appscode.com/stable/
     - helm repo update
     - kubectl create ns mongodb || echo "NS was created earlier"
     - kubectl apply -f ./mongo -n mongodb
-    - kubectl apply -f ./prometheus -n prometheus
+    - kubectl create ns prod || echo "NS was created earlier"
+    - kubectl create ns stage || echo "NS was created earlier"
+    - kubectl apply -f ./service-monitors/crawler-monitor-prod.yaml -n prod
+    - kubectl apply -f ./service-monitors/crawler-monitor-stage.yaml -n stage
+    - kubectl apply -f ./service-monitors/ui-monitor-prod.yaml -n prod
+    - kubectl apply -f ./service-monitors/ui-monitor-stage.yaml -n stage

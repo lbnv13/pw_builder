@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: crawler-monitor-stage
+  namespace: stage
+spec:
+  selector:
+    matchLabels:
+      app: crawler
+  endpoints:
+  - interval: 15s
+    path: /
+    port: main
